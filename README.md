@@ -1,157 +1,98 @@
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=816765904)
+# Criando um Sistema Bancário com python | pyscript | github pages
 
-# 🐍📜 PyScript with GitHub Codespaces and Copilot
+CLIQUE AQUI PARA INTERAGIR COM O PROJETO 
 
-_Create, customize and deploy your own [PyScript](https://pyscript.net)
-website in minutes._ ✨
+### Introdução:
 
-In this template repository we have the development environment and base set
-and ready to go. So that you can immediately launch your
-[Codespace](https://github.com/features/codespaces/) environment and start
-customizing your site using [Copilot](https://copilot.github.com) to help you
-write code faster.
+Esta é uma solução para um dos desafios de projeto propostos pela Digital Inovation One (DIO). 
 
-* **Who is this for?** __Anyone__ looking to create a
-  [PyScript](https://pyscript.net/) site, learn web development, or test out
-  Codespaces.
-* **How much experience do you need?** __Zero__. You decide how much you want
-  to customize based on your experience, and time available.
-* **Tools needed:** _None_. No need to install anything! All you need is a web
-  browser.
-* **Prerequisites:** _None_. This template includes your development
-  environment and deployable web app for you to create your own site.
+A ideia é criar um sistema bancário simples contendo as seguintes operações:
+- Visualizar Extrato
+- Efetuar Saque
+- Efetuar Deposito
 
-## About this PyScript template
+Conforme foi proposto, a aplicação foi desenvolvida utilizando a linguagem `Python`. Contudo resolvi adicionar os recursos do `pyscript` e do `github pages`.
 
-This template includes the minimal viable PyScript application, from which you
-can build.
+### Sobre pyscript e github pages:
 
-### Quick Start
+O pyscript permite que seja possível executar scripts python dentro de um browser.
 
-1. Click the **Use this Template** button and then **Create a new repository** as can be seen in the image below.
-   Note: Make sure you've signed in to GitHub otherwise, you wouldn't see the **Use this Template** button.
-![PyScript web application](https://raw.githubusercontent.com/education/codespaces-project-template-js/main/__images__/use-this-template.png "Use this Template Image Guide")
-1. Select the repository owner (e.g. your GitHub account)
-1. Enter a unique name for your new repository
-1. Click the **Code** button
-1. Click **Create Codespace on main** button
-1. Customize your PyScript site with Copilot
-1. [Deploy your site](#-deploy-your-web-application)
+Já o github pages fornece hospedagem sem custo para projetos web de baixo porte.
 
-<details>
-   <summary><b>🎥 To learn more about Codespaces, watch our video tutorial series</b></summary>
+A motivação de usar essas duas ferramentas é trazer para mais perto o produto final para o usuário, sinalizar que o que foi desenvolvido está funcionando sem problemas.
 
-   [![Codespaces Tutorial](https://img.youtube.com/vi/ozuDPmcC1io/0.jpg)](https://aka.ms/CodespacesVideoTutorial "Codespaces Tutorial")
-</details>
+Logo uma aplicação que normalmente só poderia ser executada localmente, agora pode ser compartilhada a todos com a união desses dois recursos.
 
-## 🗃️ PyScript template
+Caso você achou legal a ideia e deseja incluir em seu projeto, <a href="https://m.youtube.com/watch?v=dmIWFcJ2UTI">este vídeo</a> ensina de forma rápida e simples como implementar. 
 
-This repo is a GitHub template to build a PyScript web application. The goal is
-to give you a template that you can immediately utilize to create your own
-PyScript website through Codespaces.
+### Sobre o sistema bancário:
 
-The repo contains the following:
+#### - Menu -
 
-* `.devcontainer/devcontainer.json`: Configuration file used by Codespaces to
-  configure Visual Studio Code settings, such as the enabling of additional
-  extensions.
-* `config.json`: the
-  [PyScript configuration](https://docs.pyscript.net/2024.6.1/user-guide/configuration/)
-  used by your application.
-* `index.html`: the
-  [HTML page](https://docs.pyscript.net/2024.6.1/user-guide/first-steps/)
-  used to load your PyScript application.
-* `main.py`: the [Python script](https://pyscript.net/) to run.
-* `mini-coi.js`: a
-  [utility](https://docs.pyscript.net/2024.6.1/user-guide/workers/#http-headers)
-  to ensure all PyScript's features are available.
-* `README.md`: this file (that you're reading right now).
+Ao clicar no link do projeto, aparecerá na tela o seguinte menu:
 
-## 🚀 Getting started
+<div align="center">
+<img src="./imgs/menu.png" width="400" height="400">
+</div>
+<br>
+O usuário terá a opção de ver seu extrato, sacar uma quantia, depositar uma quantia e sair do programa. Por simplicidade, estamos supondo que o banco XPTO tem apenas uma conta.
 
-This PyScript project contains everything you need so that you can immediately
-open Codespaces, see it running, and deploy at any point.
+Temos uma caixa de texto aonde irá acontecer a interação. É importante mencionar que o programa somente vai aceitar apenas o que está indicado em [ ], qualquer caracter diferente disso vai trazer a seguinte mensagem abaixo:
 
-Your development environment is all set for you to start.
+<div align="center">
+<img src="./imgs/erro.png" width="400" height="400">
+</div>
 
-* Visual Studio Code with the [Python plugin](https://code.visualstudio.com/docs/languages/python) enabled.
-* The [LiveServer](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) plugin (so you can view your site).
-* GitHub [copilot support](https://github.com/features/copilot) (if you have it enabled for your account).
+#### - Extrato -
 
-### Create your PyScript app 
+Se incluimos o valor "1" na caixa de texto e clicar em Ok iremos para a tela de extrato. Estamos colocando uma condição que inicialmente o usuário sempre tem R$ 1200.00 em conta, e conforme vai acontecendo a interação, o saldo final vai ser modificado. 
 
-1. Create a repository from this template. Use this
-   [create repo link](https://github.com/ntoll/codespaces-project-template-pyscript/generate).
-   Select the repository owner, provide a name, a description if you'd like and
-   if you'd like the new repository to be public or private.
-1. Before creating the Codespace, enable GitHub Copilot for your account.
-1. Navigate to the main page of the newly created repository.
-3. Under the repository name, use the Code drop-down menu, and in the
-   Codespaces tab, select "Create codespace on main".
-4. Wait as GitHub initializes the Codespace.
-5. When complete you will see your Codespace load with a terminal section at
-   the bottom. Codespaces will install all the required extensions in your
-   container. Once the package installs are completed, you'll be able to start
-   editing and start a LiveServer to see your site.
+Abaixo temos a situação onde ainda não ocorreu saques ou depositos. 
 
-## 🏃 Deploy your web application
+<div align="center">
+<img src="./imgs/extrato1.png" width="400" height="400">
+</div>
 
-Project includes the setup needed for you to deploy **FREE** to either
-[Azure Static Web Apps](https://azure.microsoft.com/products/app-service/static/?WT.mc_id=academic-79839-sagibbon)
-_**or**_ [GitHub Pages](https://pages.github.com/)</a>. Instructions are
-included below for Azure. The following YouTube video demonstrates how to get
-your Codespace up and running, then deployed to GitHub Pages in under two 
-minutes:
+#### - Saque -
 
-[![PyScript to Github pages in 2 minutes.](https://img.youtube.com/vi/dmIWFcJ2UTI/0.jpg)](https://www.youtube.com/watch?v=dmIWFcJ2UTI)
+Voltando para o menu principal, ao digitar a opção "2", vamos para a operação de saque, o programa ira pedir o valor da quantia a ser sacada conforme pode ser observado logo abaixo:
 
-### Azure Static Web Apps
+<div align="center">
+<img src="./imgs/digitar_valor.png" width="400" height="400">
+</div>
+<br>
+Em relação a operação de saque, foi solicitado que incluissemos as seguintes regras:
+<ol>
+<li> O usuário pode fazer até 3 saques diários, acima desse número há é mais possível efetuar saques.</li>
+<li> Os saques não podem superar valores acima de R$ 500.00</li>
+</ol>
 
-[Azure Static Web Apps](https://azure.microsoft.com/products/app-service/static/?WT.mc_id=academic-79839-sagibbon)
-is Microsoft's hosting solution for static sites (or sites that are rendered in
-the user's browser, not on a server) through Azure. This service provides
-additional opportunities to expand your site through Azure Functions,
-authentication, staging versions and more.
+Após declarar o montante que deseja sacar, o valor será descontado do saldo inicial e atividade adicionada ao extrato.
 
-You'll need both Azure and GitHub accounts to deploy your web application. If
-you don't yet have an Azure account you can create it from within during the
-deploy process, or from below links:
+Vale comentar que o programa só vai aceitar valores inteiros positivos no momento do saque, qualquer valor diferente disso vai retornar um erro.
 
-* [Create a (no Credit Card required) Azure For Students account](https://azure.microsoft.com/free/students/?WT.mc_id=academic-79839-sagibbon)
-* [Create a new Azure account](https://azure.microsoft.com/?WT.mc_id=academic-79839-sagibbon)
+Ocorrerá também um erro caso o usuário queira sacar um valor superior ao saldo que ele tem no momento.
 
-With your project open in Codespaces:
+#### - Deposito - 
 
-1. Click Azure icon in the left sidebar. Log in if you are not already, and if
-   new to Azure, follow the prompts to create your account.
-1. From Azure menu click “+” sign and then “Create Static Web App”.
-1. If you are not logged into GitHub you will be prompted to log in. If you
-   have any pending file changes you will then be prompted to commit those
-   changes.
-1. Set your application information when prompted:
-    1. **Region**: pick the one closest to you
-    1. **Project structure**: select "React"
-    1. **Location of application code**: `/`
-    1. **Build location**: `dist`
-1. When complete you will see a notification at the bottom of your screen, and
-   a new GitHub Action workflow will be added to your project. If you click
-   “Open Action in GitHub” you will see the action that was created for you,
-   and it is currently running.
-![Azure Static Web App deploy](https://github.com/education/codespaces-project-template-js/raw/main/__images__/swa-deploy.gif "Azure Static Web App deploy")
-1. To view the status of your deployment, find your Static Web App resource in
-   the Azure tab in the VS Code left side bar.
-1. Once deployment is complete, you can view your brand new new publicly
-   accessible application by right clicking on your Static Web App resource and
-   selecting "Browse Site".
+A opção "3" dentro do menu principal leva para a operação de deposito, o procedimento é parecido com do saque, a diferença é que teremos um acrescimo de valor e sua movimentação adicionada ao extrato. Não há limite de quantidade e nem de quantia para depositos, contudo a regras de input continua a mesma: Não é permitido colocar valores que não sejam numero inteiros positivos.
 
-> **Issues?** When creating your Static Web app, if you are prompted to select
-> an Azure subscription and are not able to select a subscription, check the
-> "Accounts" tab in VS Code. Make sure to choose the "Grant access to ..."
-> options if those options appear. Should you receive the error-message
-> "RepositoryToken is invalid. ..." switch to Visual Studio Code for the Web
-> (vscode.dev) and repeat the steps there.
+Como disse acima, movimentamentações tanto de saque quanto de depósito modificam o saldo da conta. Após algumas operações realizadas, se formos consultar o extrato, haverá uma listagem das movimentações junto com os valores de saldo inicial e final conforme pode ser visualizado abaixo:
 
-> 🤩 **Bonus**: [Setup a custom domain for your Azure Static Web App](https://learn.microsoft.com/en-us/shows/azure-tips-and-tricks-static-web-apps/how-to-set-up-a-custom-domain-name-in-azure-static-web-apps-10-of-16--azure-tips-and-tricks-static-w/?WT.mc_id=academic-79839-sagibbon)
+<div align="center">
+<img src="./imgs/extrato2.png" width="400" height="400">
+</div>
 
-## 🔎 Found an issue or have an idea for improvement?
-Help us make this template repository better by [letting us know and opening an issue!](/../../issues/new).
+#### - Sair -
+
+Por fim temos a opção de sair se digitarmos "0", uma vez selecionado o programa é encerrado e toda informação inserida deletada.
+
+<div align="center">
+<img src="./imgs/saida.png" width="600" height="400">
+</div>
+
+### Encerramento:
+
+Se você você chegou até aqui e curtiu o projeto não deixe de dar uma estrela :star:
+
+Obrigado! :smile:

@@ -15,6 +15,7 @@ O que deseja fazer?
 loop = True 
 saldo_final = SALDO_INICIAL
 numero_de_saques_diarios = 0
+numero_de_depositos_diarios = 0
 movimentacoes = []
 
 def mostrar_mensagem_padrao(mensagem):
@@ -54,14 +55,14 @@ def mostrar_extrato():
     global movimentacoes
 
     if len(movimentacoes) != 0: 
-        texto_movimentacoes = "\n    ".join([f"{movimentacao['descricao']}: R$ {movimentacao['valor']}" for movimentacao in movimentacoes]) 
+        texto_movimentacoes = "\n    ".join([f"- {movimentacao['descricao']}: R$ {movimentacao['valor']}.00" for movimentacao in movimentacoes]) 
     else: 
         texto_movimentacoes = "- Sem movimentações no momento -"
 
     mensagem_mostrar_extrato = f"""EXTRATO DA CONTA
-    Saldo Inicial: R$ {SALDO_INICIAL},00
+    Saldo Inicial: R$ {SALDO_INICIAL}.00
     {texto_movimentacoes}
-    Saldo Final: R$ {saldo_final},00""" 
+    Saldo Final: R$ {saldo_final}.00""" 
 
     mostrar_mensagem_padrao(mensagem_mostrar_extrato)
 
@@ -87,13 +88,14 @@ def sacar_valor():
         saldo_final -= valor 
         numero_de_saques_diarios += 1
         movimentacoes.append({'descricao': f"Saque ({numero_de_saques_diarios}/3)",'valor': (-1)*valor})
-        mostrar_mensagem_padrao(f'O valor R$ {valor},00 foi retirado com sucesso! ({numero_de_saques_diarios}/3)')
+        mostrar_mensagem_padrao(f'O valor R$ {valor}.00 foi retirado com sucesso! ({numero_de_saques_diarios}/3)')
     else:
         mostrar_erro(tipo=3)
 
 def depositar_valor():
     global saldo_final
     global movimentacoes
+    global numero_de_depositos_diarios
     valor = digitar_valor()
 
     if valor == 0:
@@ -101,14 +103,15 @@ def depositar_valor():
 
     
     saldo_final += valor
-    movimentacoes.append({'descricao': "Deposito",'valor': valor})
-    mostrar_mensagem_padrao(f'O valor R$ {valor},00 foi depositado com sucesso!')
+    numero_de_depositos_diarios+=1
+    movimentacoes.append({'descricao': f"Deposito ({numero_de_depositos_diarios})",'valor': valor})
+    mostrar_mensagem_padrao(f'O valor R$ {valor}.00 foi depositado com sucesso!')
 
 def mostrar_erro(tipo = 1):
     if tipo == 1:
-        mostrar_mensagem_padrao('Opção inválida! Por favor digitar as opções indicadas entre [].')
+        mostrar_mensagem_padrao('Opção inválida! Por favor digitar as opções indicadas entre [ ].')
     elif tipo == 2:
-        mostrar_mensagem_padrao('Valor inválido! Por favor digitar números inteiros.')
+        mostrar_mensagem_padrao('Valor inválido! Por favor digitar números inteiros positivos.')
     elif tipo == 3:
         mostrar_mensagem_padrao('Saldo insuficiente para o saque!')
     elif tipo == 4:
