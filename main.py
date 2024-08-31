@@ -1,3 +1,4 @@
+from datetime import datetime
 
 SALDO_INICIAL = 1200
 LIMITE_MAXIMO = 500
@@ -55,7 +56,7 @@ def mostrar_extrato():
     global movimentacoes
 
     if len(movimentacoes) != 0: 
-        texto_movimentacoes = "\n    ".join([f"- {movimentacao['descricao']}: R$ {movimentacao['valor']}.00" for movimentacao in movimentacoes]) 
+        texto_movimentacoes = "\n    ".join([f"- [{movimentacao['descricao']} | {movimentacao['data']}] -> R$ {movimentacao['valor']}.00" for movimentacao in movimentacoes]) 
     else: 
         texto_movimentacoes = "- Sem movimentações no momento -"
 
@@ -72,8 +73,13 @@ def sacar_valor():
     global numero_de_saques_diarios
     global movimentacoes
     valor = digitar_valor()
+    data_registro = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
 
     if valor == 0:
+        return
+    
+    if len(movimentacoes) == 10:
+        mostrar_erro(tipo=7)
         return
     
     if valor > LIMITE_MAXIMO:
@@ -87,7 +93,7 @@ def sacar_valor():
     if saldo_final >= valor:
         saldo_final -= valor 
         numero_de_saques_diarios += 1
-        movimentacoes.append({'descricao': f"Saque ({numero_de_saques_diarios}/3)",'valor': (-1)*valor})
+        movimentacoes.append({'data': f"{data_registro}",'descricao': f"Saque ({numero_de_saques_diarios}/3)",'valor': (-1)*valor})
         mostrar_mensagem_padrao(f'O valor R$ {valor}.00 foi retirado com sucesso! ({numero_de_saques_diarios}/3)')
     else:
         mostrar_erro(tipo=3)
@@ -97,14 +103,19 @@ def depositar_valor():
     global movimentacoes
     global numero_de_depositos_diarios
     valor = digitar_valor()
+    data_registro = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
 
     if valor == 0:
+        return
+    
+    if len(movimentacoes) == 10:
+        mostrar_erro(tipo=7)
         return
 
     
     saldo_final += valor
     numero_de_depositos_diarios+=1
-    movimentacoes.append({'descricao': f"Deposito ({numero_de_depositos_diarios})",'valor': valor})
+    movimentacoes.append({'data': f"{data_registro}", 'descricao': f"Deposito ({numero_de_depositos_diarios})",'valor': valor})
     mostrar_mensagem_padrao(f'O valor R$ {valor}.00 foi depositado com sucesso!')
 
 def mostrar_erro(tipo = 1):
@@ -120,6 +131,8 @@ def mostrar_erro(tipo = 1):
         mostrar_mensagem_padrao('Você somente pode realizar operações\n    de saque de no máximo R$ 500,00.')
     elif tipo == 6:
         print("\n    Por favor atualize a página para reiniciar a aplicação")
+    elif tipo == 7:
+        print("    Número de transações excedido!\n    O sistema permite somente realizar até 10 operações diárias.")
 
 def sair():
     global loop
@@ -164,4 +177,3 @@ try:
 
 except:
     mostrar_erro(tipo = 6)
-
