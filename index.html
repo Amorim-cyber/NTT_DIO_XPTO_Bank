@@ -1,20 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="/mini-coi.js" scope="./"></script> 
-    <title>PyScript Application Template</title>
+    <title>XPTO BANK</title>
 
     <!-- Recommended meta tags -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-
-    <!-- PyScript CSS -->
-    <link rel="stylesheet" href="https://pyscript.net/releases/2024.6.1/core.css">
-
-    <!-- This script tag bootstraps PyScript -->
-    <script type="module" src="https://pyscript.net/releases/2024.6.1/core.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="https://pyscript.net/releases/2023.05.1/pyscript.css" />
+    <script defer src="https://pyscript.net/releases/2023.05.1/pyscript.js"></script>
 </head>
 <body>
-    <script type="mpy" src="./main.py" config="./config.json" terminal></script>
+    <script type="py" src="./main.py" config="./config.json"></script>
+
+    <style>
+
+        .center_all{
+            position:absolute; 
+            left:50%; 
+            top:50%; 
+            transform: translate(-50%, -50%)
+        }
+
+    </style>
+    
+    <div id="main_frame" class="center_all">
+
+        <div id="clock" style="text-align: center;"></div>
+        <br>
+        <div style="width:300px;height:300px;background-color: coral;">
+        </div>
+
+    </div>
+    
 </body>
 </html>
