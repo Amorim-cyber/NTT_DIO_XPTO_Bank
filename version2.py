@@ -1,5 +1,4 @@
 from datetime import datetime
-from pyweb import pydom
 
 class banco_XPTO:
 
@@ -17,7 +16,6 @@ class banco_XPTO:
         - [0] Sair
         """
 
-        self.loop = True 
         self.saldo_final = self.SALDO_INICIAL
         self.numero_de_saques_diarios = 0
         self.numero_de_depositos_diarios = 0
@@ -32,20 +30,32 @@ class banco_XPTO:
         - [1] Sim
         - [0] Não
         """
-        opcao_mensagem = input(mensagem_padrao)
+
+        Element("caixa_mensagem").write(mensagem_padrao)
+
+    def voltar(self):
+        
+        opcao_mensagem = Element("caixa_texto").value
 
         if opcao_mensagem == "1":
-            return
+            self.iniciar_menu()
         elif opcao_mensagem == "0":
             self.sair()
         else:
             self.mostrar_erro()
 
-    def digitar_valor(self):
-        mensagem_digitar_valor = """
+    def mostrar_mensagem_valor(self,tipo_operacao):
+
+        mensagem_digitar_valor = f"""{tipo_operacao}
         Digite o valor desejado:
         """
-        valor_texto = input(mensagem_digitar_valor)
+
+        Element("caixa_mensagem").write(mensagem_digitar_valor)
+
+
+    def mostrar_valor(self):
+        
+        valor_texto = Element("caixa_texto").value
 
         if valor_texto.isdigit():
             valor = abs(int(valor_texto))
@@ -73,14 +83,14 @@ class banco_XPTO:
     def sacar_valor(self):
 
         movimentacoes = self.movimentacoes
-        valor = self.digitar_valor()
+        valor = self.mostrar_valor()
         data_registro = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
 
         if valor == 0:
             return
         
         if len(movimentacoes) == 10:
-            self.mostrar_erro(tipo=7)
+            self.mostrar_erro(tipo=6)
             return
         
         if valor > self.LIMITE_MAXIMO:
@@ -103,14 +113,14 @@ class banco_XPTO:
         
         movimentacoes = self.movimentacoes
 
-        valor = self.digitar_valor()
+        valor = self.mostrar_valor()
         data_registro = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
 
         if valor == 0:
             return
         
         if len(movimentacoes) == 10:
-            self.mostrar_erro(tipo=7)
+            self.mostrar_erro(tipo=6)
             return
 
         
@@ -129,11 +139,9 @@ class banco_XPTO:
         elif tipo == 4:
             self.mostrar_mensagem_padrao('Você excedeu o limite diário de 3 solicitações de saque.\n    Não é mais possivel realizar esta operação.')
         elif tipo == 5:
-            self.mostrar_mensagem_padrao('Você somente pode realizar operações\n    de saque de no máximo R$ 500,00.')
+            self.mostrar_mensagem_padrao('Você somente pode realizar operações\n    de saque de no máximo R$ 500.00')
         elif tipo == 6:
-            print("\n    Por favor atualize a página para reiniciar a aplicação")
-        elif tipo == 7:
-            print("    Número de transações excedido!\n    O sistema permite somente realizar até 10 operações diárias.")
+            self.mostrar_mensagem_padrao("Número de transações excedido!\n    O sistema permite somente realizar até 10 operações diárias.")
 
     def sair(self):
 
@@ -143,11 +151,12 @@ class banco_XPTO:
         Caso deseje reiniciar a aplicação, basta atualizar a página.
         """
 
-        print(mensagem_saida)
-        self.loop = False
+        Element("caixa_mensagem").write(mensagem_saida)
 
 
-    def executar_controle(self,opcao):
+    def executar_controle(self):
+
+        opcao = Element("caixa_texto").value
 
         opcoes_disponiveis = ["0","1","2","3"]
 
@@ -157,16 +166,16 @@ class banco_XPTO:
             elif opcao == "1":
                 self.mostrar_extrato()
             elif opcao == "2":
-                self.sacar_valor()
+                self.mostrar_mensagem_valor(tipo_operacao="[SAQUE]")
             elif opcao == "3":
-                self.depositar_valor()
+                self.mostrar_mensagem_valor(tipo_operacao="[DEPOSITO]")
         else:
-            mostrar_erro()
+            self.mostrar_erro()
 
 
-    def iniciar(self):
-        
-        while self.loop:
-            opcao = input(self.MENSAGEM_BOAS_VINDAS)
-            self.executar_controle(opcao)
+    def iniciar_menu(self):
+        Element("caixa_mensagem").write(self.MENSAGEM_BOAS_VINDAS)
 
+banco = banco_XPTO()
+
+banco.iniciar_menu()
