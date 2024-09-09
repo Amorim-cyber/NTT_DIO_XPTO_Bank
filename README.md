@@ -1,6 +1,8 @@
 # Criando um Sistema Bancário com python | pyscript | github pages
 
-<a href="https://amorim-cyber.github.io/NTT_DIO_XPTO_Bank/">CLIQUE AQUI PARA INTERAGIR COM O PROJETO</a>
+<a href="https://amorim-cyber.github.io/NTT_DIO_XPTO_Bank/">CLIQUE AQUI PARA INTERAGIR COM O PROJETO VERSÃO 2</a>
+
+<a href="https://amorim-cyber.github.io/NTT_DIO_XPTO_Bank/">CLIQUE AQUI PARA INTERAGIR COM O PROJETO VERSÃO 1</a>
 
 ### Introdução:
 
@@ -10,8 +12,11 @@ A ideia é criar um sistema bancário simples contendo as seguintes operações:
 - Visualizar Extrato
 - Efetuar Saque
 - Efetuar Deposito
+- Listar Usuários Cadastrados
+- Cadastrar Usuário
+- Cadastrar Conta
 
-Conforme foi proposto, a aplicação foi desenvolvida utilizando a linguagem `Python`. Contudo resolvi adicionar os recursos do `pyscript` e do `github pages`.
+Conforme foi proposto, a aplicação foi desenvolvida utilizando a linguagem `Python`. Contudo resolvi adicionar os recursos do `pyscript` e do `github pages` para uma melhor experiência.
 
 ### Sobre pyscript e github pages:
 

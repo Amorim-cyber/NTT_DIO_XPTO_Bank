@@ -9,16 +9,26 @@
     <link rel="stylesheet" href="https://pyscript.net/releases/2023.05.1/pyscript.css" />
     <script defer src="https://pyscript.net/releases/2023.05.1/pyscript.js"></script>
     <script src="./index.js"></script>
+    <style>
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+        }
+
+    </style>
 </head>
 <body>
+
     <script type="py" src="./version2.py" config="./config.json"></script>
 
     <div id="caixa_mensagem" style="white-space: pre-line"></div>
     <br>
-    <input type="text" id="caixa_texto">
+    <input type="number" id="caixa_texto">
     <button id="botao_ok" py-click="banco.executar_controle()" onclick="control.active()">Ok</button>
     <br><br>
     <a href="./index.html">Clique aqui para ir para voltar a página principal</a>
-    
+    <p id="status_" hidden="true">0</p>
 </body>
 </html>

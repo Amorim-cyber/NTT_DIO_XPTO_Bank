@@ -1,4 +1,5 @@
 from datetime import datetime
+from pyscript import Element
 
 class banco_XPTO:
 
@@ -6,13 +7,16 @@ class banco_XPTO:
         self.SALDO_INICIAL = 1200
         self.LIMITE_MAXIMO = 500
         self.MENSAGEM_BOAS_VINDAS = """
-        Olá Usuário! Bem vindo ao banco XPTO!
+        Olá! Bem vindo ao banco XPTO!
 
         O que deseja fazer?
 
         - [1] Mostrar Extrato 
         - [2] Realizar Saque 
         - [3] Realizar Deposito
+        - [4] Listar Usuários
+        - [5] Cadastrar novo Usuário
+        - [6] Cadastrar nova Conta
         - [0] Sair
         """
 
@@ -20,6 +24,25 @@ class banco_XPTO:
         self.numero_de_saques_diarios = 0
         self.numero_de_depositos_diarios = 0
         self.movimentacoes = []
+
+        self.usuarios = [
+
+            {
+                "nome":"N/A",
+                "data_nascimento":"01/01/1900",
+                "cpf":"",
+                "endereco":[],
+                "contas":['']
+            }
+
+        ]
+        self.usuario_corrente = {}
+        self.resetar_usuario()
+
+        self.conta_corrente = ""
+
+    def resetar_usuario(self):
+        self.usuario_corrente = self.usuarios[0].copy()
 
     def mostrar_mensagem_padrao(self,mensagem):
 
@@ -52,6 +75,103 @@ class banco_XPTO:
 
         Element("caixa_mensagem").write(mensagem_digitar_valor)
 
+    def mostrar_mensagem_cadastro(self, tipo_chamada):
+
+        if tipo_chamada == 1:
+            dado = "o nome"
+        elif tipo_chamada == 2:
+            dado = "a data de nascimento"
+        elif tipo_chamada == 3:
+            dado = "o CPF"
+        elif tipo_chamada == 4:
+            dado = "o logradouro"
+        elif tipo_chamada == 5:
+            dado = "o bairro"
+        elif tipo_chamada == 6:
+            dado = "a cidade"
+        elif tipo_chamada == 7:
+            dado = "a sigla do estado"
+        elif tipo_chamada == 8:
+            dado = "a conta que deseja cadastrar"
+        elif tipo_chamada == 9:
+            dado = "o cpf do usuario que deseja vincular"
+
+        mensagem_cadastro = f"""
+        Digite {dado}:
+        """
+        Element("caixa_mensagem").write(mensagem_cadastro)
+
+    def cadastrar_dado(self, tipo):
+        
+        dado = Element("caixa_texto").value
+
+        if tipo == 1:
+            self.usuario_corrente['nome'] = dado
+            self.mostrar_mensagem_cadastro(tipo_chamada=2)
+        elif tipo == 2:
+            self.usuario_corrente['data_nascimento'] = dado
+            self.mostrar_mensagem_cadastro(tipo_chamada=3)
+        elif tipo == 3:
+
+            if dado in [usuario['cpf'] for usuario in self.usuarios]:
+                self.mostrar_erro(tipo = 7)
+                Element("status_").write("1")
+                return
+
+            self.usuario_corrente['cpf'] = dado
+            self.mostrar_mensagem_cadastro(tipo_chamada=4)
+        elif tipo == 4:
+            self.usuario_corrente['endereco'].append(dado)
+            self.mostrar_mensagem_cadastro(tipo_chamada=5)
+        elif tipo == 5:
+            self.usuario_corrente['endereco'].append(dado)
+            self.mostrar_mensagem_cadastro(tipo_chamada=6)
+        elif tipo == 6:
+            self.usuario_corrente['endereco'].append(dado)
+            self.mostrar_mensagem_cadastro(tipo_chamada=7)
+        elif tipo == 7:
+            self.usuario_corrente['endereco'].append(dado)
+            self.usuarios.append(self.usuario_corrente)
+            self.resetar_usuario()
+            self.mostrar_mensagem_padrao("Novo usuário adicionado com sucesso!")
+        elif tipo == 8:
+            if dado in [','.join([conta for conta in usuario['contas']]) for usuario in self.usuarios]:
+                self.mostrar_erro(tipo = 8)
+                Element("status_").write("1")
+                return
+            self.conta_corrente = dado
+            self.mostrar_mensagem_cadastro(tipo_chamada=9)
+        elif tipo == 9:
+            if not dado in [usuario['cpf'] for usuario in self.usuarios if usuario['cpf'] != '']:
+                self.mostrar_erro(tipo = 9)
+                Element("status_").write("1")
+                return
+            usuario_escolhido = [usuario for usuario in self.usuarios if usuario['cpf'] == dado][0]
+            usuario_escolhido['contas'].append(self.conta_corrente)
+            self.conta_corrente = ''
+            self.mostrar_mensagem_padrao("Nova conta adicionada com sucesso!")
+
+    def listar_usuarios(self):
+
+        usuarios = self.usuarios
+
+        if len(usuarios) == 1:
+            texto_usuarios = "- Sem usuários no momento -"
+        else:
+            texto_usuarios = "[USUÁRIOS]\n" + \
+                "\n".join(
+                [
+                f"""
+                Nome: {usuario['nome']}
+                Data de nascimento: {usuario['data_nascimento']}
+                CPF: {usuario['cpf']}
+                Endereço: {" - ".join([item for item in usuario['endereco'] if usuario['endereco'].index(item) != 3])}/{usuario['endereco'][3]}
+                Contas vinculadas: {"" if len(usuario['contas'])==0 else ", ".join([conta for conta in usuario['contas'] if conta != ''])  }
+                """
+                for usuario in usuarios if usuarios.index(usuario) != 0
+                ]
+            )
+        self.mostrar_mensagem_padrao(texto_usuarios)
 
     def mostrar_valor(self):
         
@@ -142,6 +262,12 @@ class banco_XPTO:
             self.mostrar_mensagem_padrao('Você somente pode realizar operações\n    de saque de no máximo R$ 500.00')
         elif tipo == 6:
             self.mostrar_mensagem_padrao("Número de transações excedido!\n    O sistema permite somente realizar até 10 operações diárias.")
+        elif tipo == 7:
+            self.mostrar_mensagem_padrao("Usuário com o CPF inválido ou já existente no sistema!")
+        elif tipo == 8:
+            self.mostrar_mensagem_padrao("Conta inválida ou ja existente no sistema!")
+        elif tipo == 9:
+            self.mostrar_mensagem_padrao("CPF não encontrado!")
 
     def sair(self):
 
@@ -158,7 +284,7 @@ class banco_XPTO:
 
         opcao = Element("caixa_texto").value
 
-        opcoes_disponiveis = ["0","1","2","3"]
+        opcoes_disponiveis = ["0","1","2","3","4","5","6"]
 
         if opcao in opcoes_disponiveis:
             if opcao == "0":
@@ -169,6 +295,12 @@ class banco_XPTO:
                 self.mostrar_mensagem_valor(tipo_operacao="[SAQUE]")
             elif opcao == "3":
                 self.mostrar_mensagem_valor(tipo_operacao="[DEPOSITO]")
+            elif opcao == "4":
+                self.listar_usuarios()
+            elif opcao == "5":
+                self.mostrar_mensagem_cadastro(tipo_chamada=1)
+            elif opcao == "6":
+                self.mostrar_mensagem_cadastro(tipo_chamada=8)
         else:
             self.mostrar_erro()
 
