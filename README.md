@@ -1,8 +1,8 @@
 # Criando um Sistema Bancário com python | pyscript | github pages
 
-<a href="https://amorim-cyber.github.io/NTT_DIO_XPTO_Bank/">CLIQUE AQUI PARA INTERAGIR COM O PROJETO VERSÃO 2</a>
+<a href="https://amorim-cyber.github.io/NTT_DIO_XPTO_Bank/version_2.html">CLIQUE AQUI PARA INTERAGIR COM O PROJETO VERSÃO 2</a>
 
-<a href="https://amorim-cyber.github.io/NTT_DIO_XPTO_Bank/">CLIQUE AQUI PARA INTERAGIR COM O PROJETO VERSÃO 1</a>
+<a href="https://amorim-cyber.github.io/NTT_DIO_XPTO_Bank/version_1.html">CLIQUE AQUI PARA INTERAGIR COM O PROJETO VERSÃO 1</a>
 
 ### Introdução:
 
@@ -36,7 +36,7 @@ Também deixo <a href="https://docs.pyscript.net/2024.2.1/user-guide/offline/" >
 
 #### - Menu -
 
-Ao clicar no <a href="https://amorim-cyber.github.io/NTT_DIO_XPTO_Bank/">link</a> do projeto, aparecerá na tela o seguinte menu:
+Ao clicar no <a href="https://amorim-cyber.github.io/NTT_DIO_XPTO_Bank/version_2.html">link</a> do projeto, aparecerá na tela o seguinte menu:
 
 <div align="center">
 <img src="./imgs/menu.png" width="400" height="400">
