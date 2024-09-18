@@ -5,6 +5,10 @@ logs
 # Build files generated from Parcel
 dist
 
+# cache
+version_3/__pycache__
+version_3/banco/__pycache__
+
 # Dependency directories
 node_modules/
 

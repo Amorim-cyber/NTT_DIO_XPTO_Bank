@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>XPTO BANK</title>
+
+    <!-- Recommended meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="https://pyscript.net/releases/2023.05.1/pyscript.css" />
+    <script defer src="https://pyscript.net/releases/2023.05.1/pyscript.js"></script>
+    <!--<script src="./index.js"></script>-->
+    <style>
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+        }
+
+    </style>
+
+</head>
+<body>
+    <py-config>
+
+        packages = ['pyscript']
+
+        [[fetch]]
+        files = ['__init__.py']
+        from = 'version_3'
+        to_folder = 'version_3'
+
+        [[fetch]]
+        files = ['__init__.py','Menu.py','MenuInicial.py','Digito.py','Dados.py','CPF.py','Saida.py']
+        from = 'version_3/banco'
+        to_folder = 'version_3/banco'
+    </py-config>
+    
+    <py-script>
+        from version_3.banco.MenuInicial import MenuInicial
+        inicio = MenuInicial()
+        inicio.mostrarMensagem()
+    </py-script>
+
+    <div id="caixa_mensagem" style="white-space: pre-line"></div>
+    <br>
+    <input type="number" id="caixa_texto">
+    <button id="botao_ok" py-click="inicio.executarOpcoes()" >Ok</button>
+    <br><br>
+    <a href="./index.html">Clique aqui para ir para voltar a página principal</a>
+    <p id="status_" hidden="true">0</p>
+</body>
+</html>
